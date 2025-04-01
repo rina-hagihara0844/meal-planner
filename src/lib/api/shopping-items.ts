@@ -1,62 +1,52 @@
-import { ShoppingItem } from "@/types";
+import { ShoppingItem, Ingredient } from "@/types";
 import { supabase } from "../utils/supabase";
 
 //買い物アイテム一覧表示
-export async function getAllItems(date?: string) {
-  const query = supabase
-    .from("shoppingitems")
-    .select(`*, ingredient: ingredient(*)`);
+export async function getAllShoppingItems(isPurchased?: boolean) {
+  let query = supabase
+    .from("shopping_items")
+    .select(`*, ingredient: ingredients(*)`);
 
-  if (date) {
-    query = query("date", date);
+  if (isPurchased !== undefined) {
+    query = query.eq("is_purchased", isPurchased);
   }
 
-  const { data, error } = await query();
+  const { data, error } = await query;
   if (error) throw error;
-  return data as ShoppingItem[];
-}
-
-//買い物アイテム詳細表示
-export async function getShoppingItem(id: string) {
-  const { data, error } = await supabase
-    .from("shoppingItem")
-    .select(`*, ingredient(*)`)
-    .eq("id", id)
-    .single();
-  if (error) throw error;
-  return data as ShoppingItem;
+  return data as (ShoppingItem & { ingredient: Ingredient })[];
 }
 
 //買い物アイテム新規登録
 export async function createShoppingItem(
-  shoppingItem: Omit<ShoppingItem, "id" | "created_at" | "updated_at">,
-  ingredients: Ingredient[]
+  item: Omit<ShoppingItem, "id" | "created_at" | "updated_at">
 ) {
   const { data, error } = await supabase
     .from("shopping_items")
-    .insert({ shoppingItem, ingredient: ingredients })
-    .select()
+    .insert(item)
+    .select(`*, ingredient:ingredients(*)`)
     .single();
   if (error) throw error;
-  return data as ShoppingItem;
+  return data as ShoppingItem & { ingredient: Ingredient };
 }
 
 //買い物アイテム更新
 export async function updateShoppingList(
   id: string,
-  shoppingItem: Partial<ShoppingItem>
+  item: Partial<ShoppingItem>
 ) {
   const { data, error } = await supabase
     .from("shopping_items")
-    .update(shoppingItem)
-    .select()
+    .update(item)
+    .eq("id", id)
+    .select(`*, ingredient: ingredients(*)`)
     .single();
   if (error) throw error;
-  return data as ShoppingItem;
+  return data as ShoppingItem & { ingredient: Ingredient };
 }
 
 //買い物アイテム削除
 export async function deleteShoppingItem(id: string) {
   const { error } = await supabase.from("shopping_items").delete().eq("id", id);
   if (error) throw error;
+  return true;
 }
