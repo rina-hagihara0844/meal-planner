@@ -21,11 +21,8 @@ export default async function DashboardPage() {
   try {
     //1週間分の献立を取得
     const meals = await getAllMeals(strToday, strOneWeekLater);
-    //全てのレシピを取得
-    const recipes = await getAllRecipes();
     //未購入のアイテムのみ取得
     const shoppingItems = await getAllShoppingItems(false);
-
     //本日の献立を取得
     const todaysMeals = meals.filter(
       (meal) => meal.date.split("T")[0] === strToday
