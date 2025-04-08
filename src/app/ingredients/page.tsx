@@ -11,6 +11,7 @@ import {
 import { Button } from "@/components/ui/Button";
 import { IngredientList } from "@/components/ingredients/IngredientList";
 import { Card, CardContent } from "@/components/ui/Card";
+import { IngredientModal } from "@/components/ingredients/IngredientModal";
 
 export default function IngredientPage() {
   const [ingredients, setIngredients] = useState<Ingredient[]>([]);
@@ -119,9 +120,8 @@ export default function IngredientPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold">食材管理</h1>
-        <Button onClick={() => handleAddIngredient}>Add Ingredient</Button>
+      <div className="flex justify-start items-center">
+        <h1 className="text-2xl font-bold">Ingredient Management</h1>
       </div>
 
       {error && (
@@ -138,6 +138,13 @@ export default function IngredientPage() {
           />
         </CardContent>
       </Card>
+
+      <IngredientModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSubmit={handleSaveIngredient}
+        ingredient={selectedIngredient}
+      />
     </div>
   );
 }
