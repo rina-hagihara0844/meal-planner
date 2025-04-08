@@ -1,9 +1,9 @@
-import "./globals.css";
+//import "./globals.css";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+//import { Inter } from "next/font/google";
 import NavItem from "@/components/ui/NavItem";
 
-const inter = Inter({ subsets: ["latin"] });
+//const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "meal-planner - 献立管理アプリ",
@@ -17,7 +17,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ja">
-      <body className={inter.className}>
+      <head>
+        <script src="https://cdn.tailwindcss.com"></script>
+      </head>
+      <body>
         <div className="min-h-screen bg-gray-50 flex">
           {/*サイドバー*/}
           <aside className="w-16 md:w-64 bg-white border-r shadow-sm flex flex-col">

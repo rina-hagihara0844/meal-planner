@@ -18,6 +18,7 @@ import {
   FormItem,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import {Select, SelectContent, SelectTrigger, SelectValue, SelectItem} from '@/components/ui/select';
 
 interface IngredientFormData {
   name: string;
@@ -104,29 +105,8 @@ export const IngredientModal: React.FC<IngredientModalProps> = ({
         <Form {...form}>
           <form onSubmit={form.handleSubmit(handleFormSubmit)}>
             <FormField
-              control={FileDiff.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Ingredient Name</FormLabel>
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </form>
-        </Form>
-        <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(handleFormSubmit)}
-            className="space-y-6"
-          >
-            <FormField
               control={form.control}
               name="name"
-              rules={{ required: "Ingredient name is required." }}
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Ingredient Name</FormLabel>
@@ -155,7 +135,7 @@ export const IngredientModal: React.FC<IngredientModalProps> = ({
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      {categoryOptions.map((option) => (
+                      {CategoryOptions.map((option) => (
                         <SelectItem key={option.value} value={option.value}>
                           {option.label}
                         </SelectItem>
