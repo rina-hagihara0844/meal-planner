@@ -37,13 +37,13 @@ export const IngredientList: React.FC<ingredientListProps> = ({
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h2 className="text-xl font-bold">Ingredient List</h2>
-        <Button onClick={onAddIngredient}>Add Ingredient</Button>
+        <Button onClick={onAddIngredient} className="bg-emerald-500 text-white">Add Ingredient</Button>
       </div>
       <div className="space-y-6">
         {sortedCategories.map((category) => {
           const categoryIngredients = groupedIngredients[category];
           return (
-            <Card key={category}>
+            <Card key={category} className="bg-emerald-50">
               <CardHeader className="py-3 px-4">
                 <h3 className="font-medium">{category}</h3>
               </CardHeader>
@@ -52,13 +52,13 @@ export const IngredientList: React.FC<ingredientListProps> = ({
                   {categoryIngredients.map((ingredient) => (
                     <div
                       key={ingredient.id}
-                      className="border rounded-lg p-3 hover:border-emerald-300 transition-colors"
+                      className="bg-white w-full border rounded-lg p-3 hover:border-emerald-300 border-2 transition-colors"
                     >
                       <div className="flex justify-between items-start">
                         <div>
                           <h4 className="font-medium">{ingredient.name}</h4>
                           <p className="text-sm text-gray-500">
-                            単位: {ingredient.unit}
+                            Unit: {ingredient.unit}
                           </p>
                         </div>
                         <div className="flex gap-2">

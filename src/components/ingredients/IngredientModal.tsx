@@ -1,5 +1,5 @@
 import { Ingredient } from "@/types";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import {
   Dialog,
@@ -18,6 +18,7 @@ import {
   FormItem,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import {Select, SelectContent, SelectTrigger, SelectValue, SelectItem} from '@/components/ui/select';
 
 interface IngredientFormData {
   name: string;
@@ -40,22 +41,28 @@ export const IngredientModal: React.FC<IngredientModalProps> = ({
 }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+
   const form = useForm<IngredientFormData>({
-    defaultValues: ingredient
-      ? {
-          name: ingredient.name,
-          category: ingredient.category,
-          unit: ingredient.unit,
-        }
-      : {
+    defaultValues: {
           name: "",
           category: "",
           unit: "g",
         },
   });
 
+  
+  useEffect(() => {
+    if (ingredient) {
+      form.reset({
+        name: ingredient.name,
+        category: ingredient.category,
+        unit: ingredient.unit,
+      });
+    }
+  }, [ingredient]);
+
+
   const CategoryOptions = [
-    { value: "", label: "Choose Category" },
     { value: "vegetables", label: "Vegetables" },
     { value: "meat", label: "Meat" },
     { value: "seafood", label: "Seafood" },
@@ -65,6 +72,7 @@ export const IngredientModal: React.FC<IngredientModalProps> = ({
     { value: "fruits", label: "Fruits" },
     { value: "others", label: "Others" },
   ];
+  
 
   const unitOptions = [
     { value: "g", label: "g" },
@@ -95,38 +103,17 @@ export const IngredientModal: React.FC<IngredientModalProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent>
+      <DialogContent className="bg-white">
         <DialogHeader>
           <DialogTitle>
             {ingredient ? "Edit Ingredient" : "Add New Ingredient"}
           </DialogTitle>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(handleFormSubmit)}>
-            <FormField
-              control={FileDiff.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Ingredient Name</FormLabel>
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </form>
-        </Form>
-        <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(handleFormSubmit)}
-            className="space-y-6"
-          >
+          <form onSubmit={form.handleSubmit(handleFormSubmit)}  className="space-y-4">
             <FormField
               control={form.control}
               name="name"
-              rules={{ required: "Ingredient name is required." }}
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Ingredient Name</FormLabel>
@@ -154,8 +141,8 @@ export const IngredientModal: React.FC<IngredientModalProps> = ({
                         <SelectValue placeholder="カテゴリーを選択" />
                       </SelectTrigger>
                     </FormControl>
-                    <SelectContent>
-                      {categoryOptions.map((option) => (
+                    <SelectContent className="bg-white">
+                      {CategoryOptions.map((option) => (
                         <SelectItem key={option.value} value={option.value}>
                           {option.label}
                         </SelectItem>
@@ -183,7 +170,7 @@ export const IngredientModal: React.FC<IngredientModalProps> = ({
                         <SelectValue placeholder="単位を選択" />
                       </SelectTrigger>
                     </FormControl>
-                    <SelectContent>
+                    <SelectContent className="bg-white">
                       {unitOptions.map((option) => (
                         <SelectItem key={option.value} value={option.value}>
                           {option.label}
@@ -195,18 +182,19 @@ export const IngredientModal: React.FC<IngredientModalProps> = ({
                 </FormItem>
               )}
             />
+            <DialogFooter className="sm:justify-end gap-3 mt-6">
+              <Button onClick={onClose}>Cancel</Button>
+              <Button
+                onClick={form.handleSubmit(handleFormSubmit)}
+                disabled={isSubmitting}
+              >
+              {isSubmitting ? "Saving..." : ingredient ? "Update" : "Add"}
+              </Button>
+              </DialogFooter>
           </form>
         </Form>
       </DialogContent>
-      <DialogFooter className="sm:justify-end gap-3 mt-6">
-        <Button onClick={onClose}>Cancel</Button>
-        <Button
-          onClick={form.handleSubmit(handleFormSubmit)}
-          disabled={isSubmitting}
-        >
-          {isSubmitting ? "Saving..." : ingredient ? "Update" : "Add"}
-        </Button>
-      </DialogFooter>
+
     </Dialog>
   );
 };
