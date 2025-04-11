@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardContent } from "@/components/ui/Card";
+import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { getAllMeals } from "@/lib/api/meals";
 import { getAllRecipes } from "@/lib/api/recipes";
 import { getAllShoppingItems } from "@/lib/api/shopping-items";
