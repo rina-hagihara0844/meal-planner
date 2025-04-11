@@ -53,7 +53,7 @@ export default async function RecipesPage(){
                 <div className="space-y-6">
                     <div className="flex justify-between items-center">
                         <h1 className="text-2xl font-bold">Recipe List</h1>
-                            <Link href="/recipes/new">
+                            <Link href="/recipe/new">
                                 <Button>Add Recipe</Button>
                             </Link>
                     </div>
