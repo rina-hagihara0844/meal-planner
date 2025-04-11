@@ -1,12 +1,13 @@
 `use client`
 import { getAllIngredients } from "@/lib/api/ingredients";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { Ingredient } from "@/types";
 import { createRecipe } from "@/lib/api/recipes";
-import { Link } from "lucide-react"; 
+import Link from "next/link";
 import { ArrowLeft } from 'lucide-react';
-import { Card, CardContent } from "@/components/ui/Card";
+import { Card, CardContent } from "@/components/ui/card";
+import { RecipeForm, RecipeFormData } from "@/components/recipes/RecipeForm";
 
 export default function NewRecipePage(){
     const router = useRouter();
@@ -27,7 +28,7 @@ export default function NewRecipePage(){
         fetchIngredients();
     }, []);
 
-    const handleSubmit = async (data: any) => {
+    const handleSubmit = async (data: RecipeFormData) => {
         setIsSubmitting(true);
         setError(null);
         try{
@@ -35,7 +36,12 @@ export default function NewRecipePage(){
             const {ingredients: recipeIngredients, ...recipeData} = data;
 
             //レシピを作成
-            await createRecipe(recipeIngredients, recipeData);
+            await createRecipe({
+                ...recipeData,
+                country_of_origin: recipeData.country_of_origin ?? "",
+                image_url: recipeData.image_url ?? ""
+            }, 
+            recipeIngredients);
             router.push('/recipe');
 
         }catch(e){

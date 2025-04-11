@@ -7,8 +7,8 @@ export interface Recipe {
   category: string;
   serving_size: number;
   instructions: string;
-  country_of_origin: string | null;
-  image_url: string | null;
+  country_of_origin: string | undefined;
+  image_url: string | undefined;
   created_at: string;
   updated_at: string;
 }

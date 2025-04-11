@@ -4,10 +4,10 @@ import { useForm, useFieldArray, FormProvider } from "react-hook-form";
 import { Form, FormControl, FormItem, FormMessage, FormField, FormLabel} from "../ui/form";
 import { Input } from "../ui/input";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem  } from "../ui/select";
-import { Button } from "../ui/Button";
+import { Button } from "../ui/button";
 import { X } from 'lucide-react';
 
-interface RecipeFormData{
+export interface RecipeFormData{
     name: string;
     description: string;
     category: string;

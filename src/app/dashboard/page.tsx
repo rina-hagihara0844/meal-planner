@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/Button";
+import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardContent } from "@/components/ui/Card";
 import { getAllMeals } from "@/lib/api/meals";
 import { getAllRecipes } from "@/lib/api/recipes";

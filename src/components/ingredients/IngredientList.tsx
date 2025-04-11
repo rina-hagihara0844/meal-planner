@@ -1,6 +1,6 @@
 import { Ingredient } from "@/types";
-import { Card, CardContent, CardHeader } from "@/components/ui/Card";
-import { Button } from "../ui/Button";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Button } from "../ui/button";
 import { Pencil } from "lucide-react";
 import { Trash } from "lucide-react";
 

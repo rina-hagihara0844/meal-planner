@@ -1,7 +1,7 @@
 import { getAllRecipes } from "@/lib/api/recipes";
 import Link from "next/link";
-import { Button } from "@/components/ui/Button";
-import {Card, CardContent} from  "@/components/ui/Card"
+import { Button } from "@/components/ui/button";
+import {Card, CardContent} from  "@/components/ui/card"
 import { Search, Filter } from 'lucide-react';
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent,SelectTrigger, SelectValue, SelectItem } from "@/components/ui/select";
