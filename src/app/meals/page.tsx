@@ -1,8 +1,9 @@
 "use client";
-import { getAllMeals, getMealById, createMeal, deleteMeal; } from "@/lib/api/meals";
+import { getAllMeals, createMeal, deleteMeal } from "@/lib/api/meals";
 import { useState, useEffect } from "react";
 import { MealWithRecipes, Recipe } from "@/types";
 import { getAllRecipes } from "@/lib/api/recipes";
+import { MealCalendar } from "@/components/meals/MealCalendar";
 
 export default function MealsPage() {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -121,67 +122,67 @@ export default function MealsPage() {
 
   //献立を削除
   const handleDeleteMeal = async () => {
-    if(!selectedMeal) return;
+    if (!selectedMeal) return;
 
-    try{
-    await deleteMeal(selectedMeal.id);  
-    setMeals(prevMeals => prevMeals.filter(meal => meal.id !== selectedMeal.id));
-    setIsMealDetailModalOpen(false);
-    setError(null);
-    } catch(e) {
-    console.error('Failed to delete meal:', e);
-    setError('Failed to delete meal');
-  }
-};
+    try {
+      await deleteMeal(selectedMeal.id);
+      setMeals((prevMeals) =>
+        prevMeals.filter((meal) => meal.id !== selectedMeal.id)
+      );
+      setIsMealDetailModalOpen(false);
+      setError(null);
+    } catch (e) {
+      console.error("Failed to delete meal:", e);
+      setError("Failed to delete meal");
+    }
+  };
 
-//買い物リストに追加
-const handleAddToShoppingList = ()=> {
-    if(!selectedMeal) return;
+  //買い物リストに追加
+  const handleAddToShoppingList = () => {
+    if (!selectedMeal) return;
     // 後ほどここに買い物リスト追加ロジックを追加
     setIsMealDetailModalOpen(false);
-}
+  };
 
-if(isLoading){
+  if (isLoading) {
     return (
-        <div className="flex justify-center items-center h-64">
+      <div className="flex justify-center items-center h-64">
         <div className="text-center">
           <div className="w-10 h-10 border-t-4 border-emerald-500 border-solid rounded-full animate-spin mx-auto mb-2"></div>
           <p className="text-gray-600">Loading...</p>
         </div>
       </div>
-    )
-}
+    );
+  }
 
-return(
+  return (
     <div className="space-y-6">
-        <div className="flex justify-between items-center">
-            <h1 className="text-2xl font-bold">Meal Management</h1>
-        </div>
+      <div className="flex justify-between items-center">
+        <h1 className="text-2xl font-bold">Meal Management</h1>
+      </div>
 
-        {error && (
-        <div className="bg-red-100 text-red-700 p-3 rounded-lg">
-            {error}
-        </div>
-        )}
+      {error && (
+        <div className="bg-red-100 text-red-700 p-3 rounded-lg">{error}</div>
+      )}
 
-        <MealCalendar
+      <MealCalendar
         meals={meals}
         currentDate={currentDate}
         onAddMeal={handleAddMeal}
-        onViewMealDetails={handleViewMealDetails};
-        />
+        onViewMealDetails={handleViewMealDetails}
+      />
 
-        {/* 献立追加モーダル */}
-        <AddMealModal
+      {/* 献立追加モーダル */}
+      <AddMealModal
         isOpen={isAddModalOpen}
         onClose={() => setIsAddModalOpen(false)}
         recipes={recipes}
         selectedDate={selectedDate}
         selectedMealType={selectedMealType}
         onAddMeal={handleAddMealSubmit}
-        />
+      />
 
-         {/* 献立詳細モーダル */}
+      {/* 献立詳細モーダル 
          <MealDetailModal 
          isOpen={isMealDetailModalOpen}
          onClose={() => setIsMealDetailModalOpen(false)}
@@ -190,6 +191,7 @@ return(
          onDelete={handleDeleteMeal}
          onAddToShoppingList={handleAddToShoppingList}
          />
+         */}
     </div>
-)
+  );
 }
