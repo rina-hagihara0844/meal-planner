@@ -18,7 +18,5 @@ export interface MealRecipe {
 }
 
 export interface MealWithRecipes extends Meal {
-  meal_recipes: (MealRecipe & {
-    recipe: Recipe;
-  })[];
+  meal_recipes: (MealRecipe & { recipe: Recipe })[];
 }

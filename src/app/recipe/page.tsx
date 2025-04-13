@@ -137,7 +137,7 @@ export default async function RecipesPage() {
           <div className="text-center py-12">
             <h2 className="text-xl font-semibold mb-2">There is no recipes.</h2>
             <p className="text-gray-600 mb-4">
-              Let's add your first recipe and start planning your meals!
+              Let%apss add your first recipe and start planning your meals!
             </p>
             <Link href="/recipe/new">
               <Button>Add Recipe</Button>
@@ -147,7 +147,7 @@ export default async function RecipesPage() {
       </div>
     );
   } catch (e) {
-    console.error("failed to load recipes data.");
+    console.error("failed to load recipes data.", e);
     return (
       <div className="text-center py-12">
         <h2 className="text-xl font-semibold mb-2">Failed to load data</h2>

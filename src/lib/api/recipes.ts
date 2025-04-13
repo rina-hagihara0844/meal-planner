@@ -62,7 +62,10 @@ export async function getRecipeById(id: string) {
 export async function updateRecipe(
   id: string,
   recipe: Partial<Recipe>,
-  ingredients?: Omit<RecipeIngredient, "id" | "recipe_id" | "created_at">[]
+  ingredients?: Omit<
+    RecipeIngredient,
+    "id" | "recipe_id" | "created_at" | "updated_at"
+  >[]
 ) {
   //レシピを更新
   const { data: recipeData, error: recipeError } = await supabase
