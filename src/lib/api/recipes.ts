@@ -51,7 +51,7 @@ export async function createRecipe(
 export async function getRecipeById(id: string) {
   const { data, error } = await supabase
     .from("recipes")
-    .select(`*, recipe_ingredients(*, ingredient:ingreduents(*))`)
+    .select(`*, recipe_ingredients(*, ingredient:ingredients(*))`)
     .eq("id", id)
     .single();
   if (error) throw error;
