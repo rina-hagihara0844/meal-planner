@@ -73,11 +73,11 @@ export const AddMealModal: React.FC<AddMealModalProps> = ({
   };
 
   return (
-    <Dialog open={isOpen}>
-      <DialogHeader>
-        <DialogTitle>Add to meal</DialogTitle>
-      </DialogHeader>
-      <DialogContent>
+    <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
+      <DialogContent className="bg-white">
+        <DialogHeader>
+          <DialogTitle>Add to meal</DialogTitle>
+        </DialogHeader>
         <div className="space-y-6">
           <div>
             <p className="mb-1 font-medium">Date:</p>
@@ -127,20 +127,20 @@ export const AddMealModal: React.FC<AddMealModalProps> = ({
             ))}
           </div>
         </div>
+        <DialogFooter>
+          <div className="flex justify-end gap-3">
+            <Button variant="outline" onClick={onClose}>
+              Cancel
+            </Button>
+            <Button
+              onClick={handleSubmit}
+              disabled={isSubmitting || selectedRecipes.length === 0}
+            >
+              {isSubmitting ? "Submitting..." : "Add to meal"}
+            </Button>
+          </div>
+        </DialogFooter>
       </DialogContent>
-      <DialogFooter>
-        <div className="flex justify-end gap-3">
-          <Button variant="outline" onClick={onClose}>
-            Cancel
-          </Button>
-          <Button
-            onClick={handleSubmit}
-            disabled={isSubmitting || selectedRecipes.length === 0}
-          >
-            {isSubmitting ? "Submitting..." : "Add to meal"}
-          </Button>
-        </div>
-      </DialogFooter>
     </Dialog>
   );
 };

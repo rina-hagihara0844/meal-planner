@@ -4,13 +4,17 @@ import { useState, useEffect } from "react";
 import { MealWithRecipes, Recipe } from "@/types";
 import { getAllRecipes } from "@/lib/api/recipes";
 import { MealCalendar } from "@/components/meals/MealCalendar";
+import { AddMealModal } from "@/components/meals/AddMealModal";
+import { MealDetailModal } from "@/components/meals/MealDetailModal";
 
 export default function MealsPage() {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [meals, setMeals] = useState<MealWithRecipes[]>([]);
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [selectedMealType, setSelectedMealType] = useState<string | null>(null);
+  const [selectedMealType, setSelectedMealType] = useState<
+    "breakfast" | "lunch" | "dinner" | null
+  >(null);
   const [selectedMeal, setSelectedMeal] = useState<MealWithRecipes>();
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isMealDetailModalOpen, setIsMealDetailModalOpen] = useState(false);
@@ -182,16 +186,15 @@ export default function MealsPage() {
         onAddMeal={handleAddMealSubmit}
       />
 
-      {/* 献立詳細モーダル 
-         <MealDetailModal 
-         isOpen={isMealDetailModalOpen}
-         onClose={() => setIsMealDetailModalOpen(false)}
-         meal={selectedMeal}
-         onEdit={handleEditMeal}
-         onDelete={handleDeleteMeal}
-         onAddToShoppingList={handleAddToShoppingList}
-         />
-         */}
+      {/* 献立詳細モーダル*/}
+      <MealDetailModal
+        isOpen={isMealDetailModalOpen}
+        onClose={() => setIsMealDetailModalOpen(false)}
+        meal={selectedMeal}
+        onEdit={handleEditMeal}
+        onDelete={handleDeleteMeal}
+        onAddToShoppingList={handleAddToShoppingList}
+      />
     </div>
   );
 }
