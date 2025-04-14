@@ -30,7 +30,7 @@ export async function createShoppingItem(
 }
 
 //買い物アイテム更新
-export async function updateShoppingList(
+export async function updateShoppingItem(
   id: string,
   item: Partial<ShoppingItem>
 ) {
