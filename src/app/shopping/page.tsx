@@ -4,6 +4,9 @@ import { ShoppingItem, Ingredient } from "@/types";
 import { createShoppingItem, deleteShoppingItem, getAllShoppingItems } from "@/lib/api/shopping-items";
 import { typeboxResolver } from "@hookform/resolvers/typebox";
 import { getAllIngredients } from "@/lib/api/ingredients";
+import { generateShoppingList } from "@/lib/service/shopping-list";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 
 export default function ShopingPage(){
     const [shoppingItems, setShoppingItems] = useState<(ShoppingItem & { ingredient: Ingredient })[]>([]);
@@ -102,12 +105,95 @@ export default function ShopingPage(){
     };
 
     // 献立から買い物リストを生成
-    {/**　4/15 ここから */}
+    const handleGenerateList = async (startDate: string, endDate: string) => {
+      try{
+        // 献立から買い物リストを生成
+        const generatedItems = await generateShoppingList(startDate, endDate);
+        // 各アイテムを買い物リストに追加
+        const newItems = await Promise.all(
+          generatedItems.map(item => createShoppingItem({
+            ingredient_id: item.ingredient_id,
+            quantity: Math.ceil(item.quantity), //小数点以下切り上げ
+            is_purchased: false,
+            purchased_date: null,
+          }))
+        );
+        
+        // 画面に表示されているアイテムを更新
+        setShoppingItems(prevItems => [...prevItems, ...newItems]);
 
+      } catch (e) {
+        console.error('Failed to generate shopping list:', err);
+        setError('Failed to generate shopping list');
+      }
+    };
+
+    if(isLoading) {
+      return(
+        <div className="flex justify-center items-center h-64">
+          <div className="text-center">
+            <div className="h-10 w-10 border-t-4 border-emerald-500 border-solid rounded-full animate-spin mx-auto mb-2"></div>
+            <p className="text-gray-600">Loading</p>
+          </div>
+        </div>
+      )
+    }
+
+    return(
+      <div className="space-y-6">
+        <div className="flex justify-between items-center">
+          <h1 className="text-2xl font-bold">Shopping List</h1>
+          <div className="flex gap-2">
+            <Button variant="outline" onClick={() => setIsGenerateModalOpen(true)}>Add from meal</Button>
+            <Button variant="outline" onClick={() => setIsAddModalOpen(true)}>Add items</Button>
+          </div>  
+        </div>
+
+        {error && (
+            <div className="bg-red-100 text-red-700 p-3 rounded-lg">
+                {error}
+            </div>
+        )}
+
+        <Card>
+          <CardContent className="p-6">
+            <ShoppingList
+            items={shoppingItems}
+            onToggleItem={handleToggleItem}
+            onDeleteItem={handleDeleteItem}
+            onClearPurchased={handleClearPurchased}
+            />
+          </CardContent>
+        </Card>
+
+         {/* アイテム追加モーダル */}
+         <AddShoppingItemModal 
+         IsOpen={isAddModalOpen}
+         onClose={() => setIsAddModalOpen}
+         ingredients={ingredients}
+         onAddItem={handleAddItem}
+         />
+
+         {/* 買い物リスト生成モーダル */}
+          <GenerateShoppingList 
+          isOpen={isGenerateModalOpen}
+          onClose={() => setIsAddModalOpen(false)}
+          onGenerate={handleGenerateList}
+          />
+
+      </div>
+    )
 }
+     
+
 
       
-      
+      <GenerateShoppingListModal
+        isOpen={isGenerateModalOpen}
+        onClose={() => setIsGenerateModalOpen(false)}
+        onGenerate={handleGenerateList}
+      />
+
 
 
 
