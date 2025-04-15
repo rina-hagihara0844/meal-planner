@@ -7,6 +7,7 @@ import { getAllIngredients } from "@/lib/api/ingredients";
 import { generateShoppingList } from "@/lib/service/shopping-list";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { ShoppingList } from "@/components/shopping/shoppingList";
 
 export default function ShopingPage(){
     const [shoppingItems, setShoppingItems] = useState<(ShoppingItem & { ingredient: Ingredient })[]>([]);
