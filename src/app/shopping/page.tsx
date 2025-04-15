@@ -7,7 +7,9 @@ import { getAllIngredients } from "@/lib/api/ingredients";
 import { generateShoppingList } from "@/lib/service/shopping-list";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { ShoppingList } from "@/components/shopping/shoppingList";
+import { ShoppingList } from "@/components/shopping/ShoppingList";
+import { AddShoppingItemModal } from "@/components/shopping/AddShoppingItemModal";
+import { GenerateShoppingModal } from "@/components/shopping/GenerateShoppingListModal.tsx";
 
 export default function ShopingPage(){
     const [shoppingItems, setShoppingItems] = useState<(ShoppingItem & { ingredient: Ingredient })[]>([]);
@@ -189,7 +191,7 @@ export default function ShopingPage(){
 
 
       
-      <GenerateShoppingListModal
+      <GenerateShoppingModal
         isOpen={isGenerateModalOpen}
         onClose={() => setIsGenerateModalOpen(false)}
         onGenerate={handleGenerateList}
