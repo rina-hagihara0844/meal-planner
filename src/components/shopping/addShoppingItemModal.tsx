@@ -1,12 +1,13 @@
 'use client';
 import { Ingredient, ShoppingItem } from "@/types";
 import React, {useState} from "react";
-import { useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { Select, SelectTrigger, SelectContent, SelectValue, SelectItem } from "../ui/select";
-import { Form, FormItem, FormControl, FormField, FormMessage } from "../ui/form";
+import { Form, FormItem, FormControl, FormField, FormMessage, FormLabel } from "../ui/form";
 import { Dialog, DialogContent, DialogFooter, DialogHeader } from "../ui/dialog";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { Button } from "../ui/button";
+import { Input } from "../ui/input";
 
 
 interface AddShoppingItemFormData{
@@ -15,7 +16,7 @@ interface AddShoppingItemFormData{
 }
 
 interface AddShoppingItemModalProps{
-    IsOpen: boolean;
+    isOpen: boolean;
     onClose: () => void, 
     ingredients: Ingredient[];
     onAddItem: (data: AddShoppingItemFormData) => Promise<void>;
@@ -29,15 +30,6 @@ export const AddShoppingItemModal: React.FC<AddShoppingItemModalProps> = ({
 }) => {
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-useForm<AddShoppingItemFormData>({
-        defaultValues: {
-          ingredient_id: '',
-          quantity: 1,
-        },
-      });
-
-
-
     const form = useForm<AddShoppingItemFormData>({
         defaultValues:{
             ingredient_id: "",
@@ -45,12 +37,10 @@ useForm<AddShoppingItemFormData>({
         }
     });
 
-    const ingredientOptions = [
-        ingredients.map(ingredient => ({
+    const ingredientOptions = ingredients.map(ingredient => ({
                 value: ingredient.id,
                 label: ingredient.name,
-            }))
-    ];
+            }));
 
     const onSubmit = async (data: AddShoppingItemFormData) => {
         setIsSubmitting(true);
@@ -73,26 +63,26 @@ useForm<AddShoppingItemFormData>({
                         Add to shopping list
                     </DialogTitle>
                 </DialogHeader>
-                <div>
-                    {/**続きここの中 4/15*/}
                     <Form {...form}>
-                        <form onSubmit={form.handleSubmit(onAddItem())}>
+                        <form className="space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
                             <FormField 
                             control={form.control}
                             name="ingredient_id"
+                            rules={{required: 'ingredient is required'}}
                             render={({field}) => (
                                 <FormItem>
+                                    <FormLabel>Ingredient</FormLabel>
                                 <FormControl>
-                                    <Select>
+                                    <Select value={field.value} onValueChange={field.onChange}>
                                         <SelectTrigger>
                                             <SelectValue />
                                         </SelectTrigger>
                                         <SelectContent>
-                                            {ingredients.map((item) =>
-                                                <SelectItem key={item.id} value={field.value}>
-                                                    {item.name}
+                                            {ingredientOptions.map((option) => (
+                                                <SelectItem key={option.value} value={option.value}>
+                                                    {option.label}
                                                 </SelectItem>
-                                            )}
+                                            ));}
                                         </SelectContent>
                                     </Select>
                                 </FormControl>
@@ -100,20 +90,44 @@ useForm<AddShoppingItemFormData>({
                                 </FormItem>
                             )}
                             />
-                        </form>
-                    </Form>
-                </div>
+                            <FormField
+                            control={form.control}
+                            name="quantity"
+                            rules={{
+                                required:"quantity is required",
+                                min: {
+                                    value: 1,
+                                    message: "Please enter a value of 1 or more.",
+                                }
+                            }}
+                            render={({field}) => (
+                                <FormItem>
+                                    <FormLabel>Quantity</FormLabel>
+                                    <FormControl>
+                                        <Input 
+                                        type="number"
+                                        step={1}
+                                        min={1}
+                                        {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage/>
+                                </FormItem>
+                            )}
+                            />
                 <DialogFooter>
                     <div className="flex justify-end gap-3">
                             <Button variant="outline" onClick={onClose}>Cancel</Button>
                             <Button 
-                            onClick={form.handleSubmit(onSubmit)}
+                            type="submit"
                             disabled={isSubmitting}
                             >
                             {isSubmitting ? 'Submitting...' : 'Add'}
                             </Button>               
                     </div>                             
                 </DialogFooter>
+                </form>
+            </Form>
             </DialogContent>
         </Dialog>
     )
