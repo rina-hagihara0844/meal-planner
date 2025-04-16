@@ -121,7 +121,7 @@ export default function IngredientPage() {
   return (
     <div className="space-y-6">
       <div className="flex justify-start items-center">
-        <h1 className="text-2xl font-bold">Ingredient Management</h1>
+        <h1 className="text-2xl font-bold">Ingredient Management Page</h1>
       </div>
 
       {error && (
@@ -129,7 +129,7 @@ export default function IngredientPage() {
       )}
 
       <Card>
-        <CardContent className="p-6">
+        <CardContent className="p-6 bg-white">
           <IngredientList
             ingredients={ingredients}
             onAddIngredient={handleAddIngredient}

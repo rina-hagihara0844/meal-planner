@@ -1,11 +1,10 @@
 'use client';
 import { Ingredient, ShoppingItem } from "@/types";
 import React, {useState} from "react";
-import { FormProvider, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { Select, SelectTrigger, SelectContent, SelectValue, SelectItem } from "../ui/select";
 import { Form, FormItem, FormControl, FormField, FormMessage, FormLabel } from "../ui/form";
-import { Dialog, DialogContent, DialogFooter, DialogHeader } from "../ui/dialog";
-import { DialogTitle } from "@radix-ui/react-dialog";
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "../ui/dialog";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 
@@ -23,7 +22,7 @@ interface AddShoppingItemModalProps{
 } 
 
 export const AddShoppingItemModal: React.FC<AddShoppingItemModalProps> = ({
-    IsOpen,
+    isOpen,
     onClose,
     ingredients,
     onAddItem,
@@ -56,8 +55,8 @@ export const AddShoppingItemModal: React.FC<AddShoppingItemModalProps> = ({
     };
 
     return(
-        <Dialog open={IsOpen} onOpenChange={open => !open && onClose()}>
-            <DialogContent>
+        <Dialog open={isOpen} onOpenChange={open => !open && onClose()}>
+            <DialogContent className="bg-white">
                 <DialogHeader>
                     <DialogTitle>
                         Add to shopping list
@@ -77,12 +76,12 @@ export const AddShoppingItemModal: React.FC<AddShoppingItemModalProps> = ({
                                         <SelectTrigger>
                                             <SelectValue />
                                         </SelectTrigger>
-                                        <SelectContent>
+                                        <SelectContent className="bg-white">
                                             {ingredientOptions.map((option) => (
                                                 <SelectItem key={option.value} value={option.value}>
                                                     {option.label}
                                                 </SelectItem>
-                                            ));}
+                                            ))}
                                         </SelectContent>
                                     </Select>
                                 </FormControl>
@@ -117,8 +116,9 @@ export const AddShoppingItemModal: React.FC<AddShoppingItemModalProps> = ({
                             />
                 <DialogFooter>
                     <div className="flex justify-end gap-3">
-                            <Button variant="outline" onClick={onClose}>Cancel</Button>
+                            <Button variant="cancel" onClick={onClose}>Cancel</Button>
                             <Button 
+                            variant="primary"
                             type="submit"
                             disabled={isSubmitting}
                             >

@@ -215,7 +215,7 @@ export const RecipeForm: React.FC<RecipeFormProps> = ({
             <h3 className="font-medium">Ingredient</h3>
             <Button
               type="button"
-              variant="outline"
+              variant="primary"
               size="sm"
               onClick={() =>
                 append({
@@ -347,10 +347,10 @@ export const RecipeForm: React.FC<RecipeFormProps> = ({
         </div>
 
         <div className="flex justify-end gap-3">
-          <Button type="button" variant="outline">
+          <Button type="button" variant="cancel">
             Cancel
           </Button>
-          <Button type="submit" disabled={isSubmitting}>
+          <Button variant="primary" type="submit" disabled={isSubmitting}>
             {isSubmitting ? "Saving..." : recipe ? "Update" : "Add"}
           </Button>
         </div>

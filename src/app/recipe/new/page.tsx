@@ -60,9 +60,9 @@ export default function NewRecipePage() {
             className="text-emerald-600 hover:underline flex items-center"
           >
             <ArrowLeft className="h-4 w-4 mr-1" />
-            Back to Recipe List page.
+            Back to recipe list page.
           </Link>
-          <h1 className="text-2xl font-bold">Add new recipe</h1>
+          <h1 className="text-2xl font-bold">Add New Recipe</h1>
         </div>
       </div>
       {error && (

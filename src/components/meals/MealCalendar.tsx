@@ -75,9 +75,9 @@ export const MealCalendar: React.FC<MealCalendarProps> = ({
           )}
         </h2>
         <div className="flex gap-2">
-          <Button variant="outline">last week</Button>
-          <Button variant="outline">this week</Button>
-          <Button variant="outline">next week</Button>
+          <Button variant="secondary">Last Week</Button>
+          <Button variant="primary">This Week</Button>
+          <Button variant="secondary">Next Week</Button>
         </div>
       </div>
 

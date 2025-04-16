@@ -37,7 +37,7 @@ export const IngredientList: React.FC<ingredientListProps> = ({
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h2 className="text-xl font-bold">Ingredient List</h2>
-        <Button onClick={onAddIngredient} className="bg-emerald-500 text-white">Add Ingredient</Button>
+        <Button onClick={onAddIngredient} variant="primary">Add Ingredient</Button>
       </div>
       <div className="space-y-6">
         {sortedCategories.map((category) => {

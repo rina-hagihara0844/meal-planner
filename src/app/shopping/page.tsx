@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect } from "react" 
 import { ShoppingItem, Ingredient } from "@/types";
-import { createShoppingItem, deleteShoppingItem, getAllShoppingItems } from "@/lib/api/shopping-items";
+import { createShoppingItem, deleteShoppingItem, getAllShoppingItems, updateShoppingItem } from "@/lib/api/shopping-items";
 import { typeboxResolver } from "@hookform/resolvers/typebox";
 import { getAllIngredients } from "@/lib/api/ingredients";
 import { generateShoppingList } from "@/lib/service/shopping-list";
@@ -145,10 +145,10 @@ export default function ShopingPage(){
     return(
       <div className="space-y-6">
         <div className="flex justify-between items-center">
-          <h1 className="text-2xl font-bold">Shopping List</h1>
+          <h1 className="text-2xl font-bold">Shopping List Page</h1>
           <div className="flex gap-2">
-            <Button variant="outline" onClick={() => setIsGenerateModalOpen(true)}>Add from meal</Button>
-            <Button variant="outline" onClick={() => setIsAddModalOpen(true)}>Add items</Button>
+            <Button variant="primary" onClick={() => setIsGenerateModalOpen(true)}>Generate From Meal</Button>
+            <Button variant="primary" onClick={() => setIsAddModalOpen(true)}>Add Items</Button>
           </div>  
         </div>
 
@@ -171,16 +171,16 @@ export default function ShopingPage(){
 
          {/* アイテム追加モーダル */}
          <AddShoppingItemModal 
-         IsOpen={isAddModalOpen}
-         onClose={() => setIsAddModalOpen}
+         isOpen={isAddModalOpen}
+         onClose={() => setIsAddModalOpen(false)}
          ingredients={ingredients}
          onAddItem={handleAddItem}
          />
 
          {/* 買い物リスト生成モーダル */}
-          <GenerateShoppingList 
+          <GenerateShoppingModal 
           isOpen={isGenerateModalOpen}
-          onClose={() => setIsAddModalOpen(false)}
+          onClose={() => setIsGenerateModalOpen(false)}
           onGenerate={handleGenerateList}
           />
 
@@ -190,12 +190,6 @@ export default function ShopingPage(){
      
 
 
-      
-      <GenerateShoppingModal
-        isOpen={isGenerateModalOpen}
-        onClose={() => setIsGenerateModalOpen(false)}
-        onGenerate={handleGenerateList}
-      />
 
 
 

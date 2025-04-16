@@ -70,8 +70,8 @@ export const GenerateShoppingModal: React.FC<GenerateShoppingModalProps> = ({
                         </div>
                     </div>
                     <DialogFooter>
-                        <Button variant="outline" onClick={onClose}>Cancel</Button>
-                        <Button variant="default" onClick={handleGenerate} disabled={isSubmitting || !startDate || !endDate}>
+                        <Button variant="cancel" onClick={onClose}>Cancel</Button>
+                        <Button variant="primary" onClick={handleGenerate} disabled={isSubmitting || !startDate || !endDate}>
                         {isSubmitting ? 'Submitting' : 'Generate'}        
                         </Button>
                     </DialogFooter>  

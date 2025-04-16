@@ -63,14 +63,14 @@ export const IngredientModal: React.FC<IngredientModalProps> = ({
 
 
   const CategoryOptions = [
-    { value: "vegetables", label: "Vegetables" },
-    { value: "meat", label: "Meat" },
-    { value: "seafood", label: "Seafood" },
-    { value: "dairy", label: "Dairy" },
-    { value: "seasoning", label: "Seasoning" },
-    { value: "grains", label: "Grains" },
-    { value: "fruits", label: "Fruits" },
-    { value: "others", label: "Others" },
+    { value: "Vegetables", label: "Vegetables" },
+    { value: "Meat", label: "Meat" },
+    { value: "Seafood", label: "Seafood" },
+    { value: "Dairy", label: "Dairy" },
+    { value: "Seasoning", label: "Seasoning" },
+    { value: "Grains", label: "Grains" },
+    { value: "Fruits", label: "Fruits" },
+    { value: "Others", label: "Others" },
   ];
   
 
@@ -103,7 +103,7 @@ export const IngredientModal: React.FC<IngredientModalProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="bg-white">
+      <DialogContent>
         <DialogHeader>
           <DialogTitle>
             {ingredient ? "Edit Ingredient" : "Add New Ingredient"}
@@ -128,17 +128,17 @@ export const IngredientModal: React.FC<IngredientModalProps> = ({
             <FormField
               control={form.control}
               name="category"
-              rules={{ required: "カテゴリーは必須です" }}
+              rules={{ required: "category is required" }}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>カテゴリー</FormLabel>
+                  <FormLabel>Category</FormLabel>
                   <Select
                     onValueChange={field.onChange}
                     defaultValue={field.value}
                   >
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="カテゴリーを選択" />
+                        <SelectValue placeholder="Select category" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent className="bg-white">
@@ -157,20 +157,20 @@ export const IngredientModal: React.FC<IngredientModalProps> = ({
             <FormField
               control={form.control}
               name="unit"
-              rules={{ required: "単位は必須です" }}
+              rules={{ required: "Unit is required" }}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>単位</FormLabel>
+                  <FormLabel>Unit</FormLabel>
                   <Select
                     onValueChange={field.onChange}
                     defaultValue={field.value}
                   >
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="単位を選択" />
+                        <SelectValue placeholder="Select unit" />
                       </SelectTrigger>
                     </FormControl>
-                    <SelectContent className="bg-white">
+                    <SelectContent>
                       {unitOptions.map((option) => (
                         <SelectItem key={option.value} value={option.value}>
                           {option.label}
@@ -183,8 +183,9 @@ export const IngredientModal: React.FC<IngredientModalProps> = ({
               )}
             />
             <DialogFooter className="sm:justify-end gap-3 mt-6">
-              <Button onClick={onClose}>Cancel</Button>
+              <Button variant="cancel" onClick={onClose}>Cancel</Button>
               <Button
+                variant="primary"
                 onClick={form.handleSubmit(handleFormSubmit)}
                 disabled={isSubmitting}
               >

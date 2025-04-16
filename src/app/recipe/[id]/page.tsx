@@ -29,16 +29,17 @@ export default async function RecipeDetailPage({
               className="text-emerald-600 hover:underline flex items-center"
             >
               <ArrowLeft className="h-4 w-4 mr-1" />
-              Back to Recipe List page.
+              Back to recipe list page.
             </Link>
             <h1 className="text-2xl font-bold">{recipe.name}</h1>
           </div>
 
           <div className="flex gap-2">
             <Link href={`/recipe/${recipe.id}/edit`}>
-              <Button variant="outline">Edit</Button>
+              <Button variant="primary">Edit</Button>
             </Link>
-            <Button>Add to Meal</Button>
+            {/*今後実装予定 */}
+            <Button variant="primary">Add to Meal</Button>
           </div>
         </div>
 
@@ -99,8 +100,7 @@ export default async function RecipeDetailPage({
             </Card>
           </div>
           <div className="md:col-span-1">
-            {/* サイドバーエリア 必要に応じてコンテンツを追加 */}
-            <Button className="w-full">Add to meal</Button>
+            {/* サイドバーエリア 今後コンテンツを追加予定 */}
           </div>
         </div>
       </div>

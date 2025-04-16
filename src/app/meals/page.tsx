@@ -57,7 +57,7 @@ export default function MealsPage() {
   }, [currentDate]);
 
   //献立追加モーダルを開く
-  const handleAddMeal = (date: Date, mealType: string) => {
+  const handleAddMeal = (date: Date, mealType:"breakfast" | "lunch" | "dinner") => {
     setSelectedDate(date);
     setSelectedMealType(mealType);
     setIsAddModalOpen(true);
@@ -162,7 +162,7 @@ export default function MealsPage() {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold">Meal Management</h1>
+        <h1 className="text-2xl font-bold">Meal Management Page</h1>
       </div>
 
       {error && (
