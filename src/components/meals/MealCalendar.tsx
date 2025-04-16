@@ -112,6 +112,13 @@ export const MealCalendar: React.FC<MealCalendarProps> = ({
                 <Card
                   key={`${date.toISOString()}-${mealType}`}
                   className="h-full"
+                  onClick={() => {
+                    if (mealsForDate.length > 0) {
+                      onViewMealDetails(mealsForDate[0].id);
+                    } else {
+                      onAddMeal(date, mealType);
+                    }
+                  }}
                 >
                   <CardContent className="p-3">
                     {mealsForDate.length > 0 ? (
@@ -120,7 +127,6 @@ export const MealCalendar: React.FC<MealCalendarProps> = ({
                           <div
                             key={meal.id}
                             className="mb-2 cursor-pointer hover:text-emerald-600"
-                            onClick={() => onViewMealDetails(meal.id)}
                           >
                             {meal.meal_recipes.map((mr) => (
                               <div key={mr.id} className="text-sm mb-1">
@@ -133,7 +139,6 @@ export const MealCalendar: React.FC<MealCalendarProps> = ({
                     ) : (
                       <div
                         className="h-full min-h-16 flex items-center justify-center border-2 border-dashed bprder-gray-200 rounded-lg p-2 cursor-pointer hover:border-emerald-300 transition-colors"
-                        onClick={() => onAddMeal(date, mealType)}
                       >
                         <span className="text-sm text-gray-500">+</span>
                       </div>

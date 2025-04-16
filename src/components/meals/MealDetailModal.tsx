@@ -104,11 +104,8 @@ export const MealDetailModal: React.FC<MealDetailModalProps> = ({
               Delete
             </Button>
             <div className="flex gap-3">
-              <Button variant="outline" onClick={onEdit}>
+              <Button variant="primary" onClick={onEdit}>
                 Edit
-              </Button>
-              <Button onClick={onAddToShoppingList}>
-                Add to shopping list
               </Button>
             </div>
           </div>
