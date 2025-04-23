@@ -10,3 +10,7 @@ export interface ShoppingItem {
   updated_at: string;
   ingredient?: Ingredient;
 }
+
+export interface ShoppingWithIngredient extends ShoppingItem{
+  ingredient: Ingredient;
+}

@@ -8,7 +8,6 @@ import {
   updateIngredient,
   createIngredient,
 } from "@/lib/api/ingredients";
-import { Button } from "@/components/ui/button";
 import { IngredientList } from "@/components/ingredients/IngredientList";
 import { Card, CardContent } from "@/components/ui/card";
 import { IngredientModal } from "@/components/ingredients/IngredientModal";

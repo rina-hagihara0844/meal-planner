@@ -1,5 +1,6 @@
 import { Meal, MealWithRecipes } from "@/types";
 import { supabase } from "../utils/supabase";
+import RecipeDetailPage from "@/app/recipe/[id]/page";
 
 //献立一覧表示(レシピと紐づけて日付で絞り込む)
 export async function getAllMeals(startDate?: string, endDate?: string) {
@@ -22,6 +23,7 @@ export async function getAllMeals(startDate?: string, endDate?: string) {
   if (error) throw error;
   return data as MealWithRecipes[];
 }
+
 
 //献立新規登録(レシピとの紐づけ)
 export async function createMeal(

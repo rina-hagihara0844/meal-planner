@@ -1,4 +1,4 @@
-import { ShoppingItem, Ingredient } from "@/types";
+import { ShoppingItem, Ingredient, ShoppingWithIngredient } from "@/types";
 import { supabase } from "../utils/supabase";
 
 //買い物アイテム一覧表示
@@ -13,7 +13,7 @@ export async function getAllShoppingItems(isPurchased?: boolean) {
 
   const { data, error } = await query;
   if (error) throw error;
-  return data as (ShoppingItem & { ingredient: Ingredient })[];
+  return data as ShoppingWithIngredient[];
 }
 
 //買い物アイテム新規登録
@@ -26,7 +26,7 @@ export async function createShoppingItem(
     .select(`*, ingredient:ingredients(*)`)
     .single();
   if (error) throw error;
-  return data as ShoppingItem & { ingredient: Ingredient };
+  return data as ShoppingWithIngredient;
 }
 
 //買い物アイテム更新
@@ -41,7 +41,7 @@ export async function updateShoppingItem(
     .select(`*, ingredient: ingredients(*)`)
     .single();
   if (error) throw error;
-  return data as ShoppingItem & { ingredient: Ingredient };
+  return data as ShoppingWithIngredient;
 }
 
 //買い物アイテム削除
